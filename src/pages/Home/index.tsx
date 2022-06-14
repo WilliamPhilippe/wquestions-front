@@ -1,12 +1,24 @@
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { CenteredContainer } from "../../components/Containers/centeredContainer";
+import { ROUTES } from "../../routes/paths";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   return (
-    <div>
-      <p className="font-semibold text-red-500">
-        Olá, aqui você pode elaborar sua prova
-      </p>
-      <Button>Hello World</Button>
-    </div>
+    <CenteredContainer>
+      <div className="flex flex-row justify-evenly">
+        <Button
+          variant="outlined"
+          onClick={() => navigate(ROUTES.question.create)}
+        >
+          Criar Questão
+        </Button>
+        <Button variant="outlined" onClick={() => navigate(ROUTES.test.create)}>
+          Criar Prova
+        </Button>
+      </div>
+    </CenteredContainer>
   );
 };

@@ -26,6 +26,23 @@ export type AggregateQuestion = {
   _sum?: Maybe<QuestionSumAggregate>;
 };
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type BoolFilter = {
+  equals?: InputMaybe<Scalars['Boolean']>;
+  not?: InputMaybe<NestedBoolFilter>;
+};
+
+export type BoolWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedBoolFilter>;
+  _min?: InputMaybe<NestedBoolFilter>;
+  equals?: InputMaybe<Scalars['Boolean']>;
+  not?: InputMaybe<NestedBoolWithAggregatesFilter>;
+};
+
 export type EnumSubTopicsTypeNullableListFilter = {
   equals?: InputMaybe<Array<SubTopicsType>>;
   has?: InputMaybe<SubTopicsType>;
@@ -139,6 +156,19 @@ export type MutationUpsertQuestionArgs = {
   create: QuestionCreateInput;
   update: QuestionUpdateInput;
   where: QuestionWhereUniqueInput;
+};
+
+export type NestedBoolFilter = {
+  equals?: InputMaybe<Scalars['Boolean']>;
+  not?: InputMaybe<NestedBoolFilter>;
+};
+
+export type NestedBoolWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedBoolFilter>;
+  _min?: InputMaybe<NestedBoolFilter>;
+  equals?: InputMaybe<Scalars['Boolean']>;
+  not?: InputMaybe<NestedBoolWithAggregatesFilter>;
 };
 
 export type NestedEnumTopicTypeFilter = {
@@ -338,6 +368,7 @@ export type Question = {
   id: Scalars['Int'];
   image?: Maybe<Scalars['String']>;
   level: Scalars['Int'];
+  multiple: Scalars['Boolean'];
   options: Array<Scalars['String']>;
   subTopics: Array<SubTopicsType>;
   topic: TopicType;
@@ -362,6 +393,7 @@ export type QuestionCountAggregate = {
   id: Scalars['Int'];
   image: Scalars['Int'];
   level: Scalars['Int'];
+  multiple: Scalars['Int'];
   options: Scalars['Int'];
   subTopics: Scalars['Int'];
   topic: Scalars['Int'];
@@ -373,6 +405,7 @@ export type QuestionCountOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   level?: InputMaybe<SortOrder>;
+  multiple?: InputMaybe<SortOrder>;
   options?: InputMaybe<SortOrder>;
   subTopics?: InputMaybe<SortOrder>;
   topic?: InputMaybe<SortOrder>;
@@ -383,6 +416,7 @@ export type QuestionCreateInput = {
   description: Scalars['String'];
   image?: InputMaybe<Scalars['String']>;
   level: Scalars['Int'];
+  multiple?: InputMaybe<Scalars['Boolean']>;
   options?: InputMaybe<QuestionCreateoptionsInput>;
   subTopics?: InputMaybe<QuestionCreatesubTopicsInput>;
   topic: TopicType;
@@ -394,6 +428,7 @@ export type QuestionCreateManyInput = {
   id?: InputMaybe<Scalars['Int']>;
   image?: InputMaybe<Scalars['String']>;
   level: Scalars['Int'];
+  multiple?: InputMaybe<Scalars['Boolean']>;
   options?: InputMaybe<QuestionCreateoptionsInput>;
   subTopics?: InputMaybe<QuestionCreatesubTopicsInput>;
   topic: TopicType;
@@ -419,6 +454,7 @@ export type QuestionGroupBy = {
   id: Scalars['Int'];
   image?: Maybe<Scalars['String']>;
   level: Scalars['Int'];
+  multiple: Scalars['Boolean'];
   options?: Maybe<Array<Scalars['String']>>;
   subTopics?: Maybe<Array<SubTopicsType>>;
   topic: TopicType;
@@ -431,6 +467,7 @@ export type QuestionMaxAggregate = {
   id?: Maybe<Scalars['Int']>;
   image?: Maybe<Scalars['String']>;
   level?: Maybe<Scalars['Int']>;
+  multiple?: Maybe<Scalars['Boolean']>;
   topic?: Maybe<TopicType>;
 };
 
@@ -440,6 +477,7 @@ export type QuestionMaxOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   level?: InputMaybe<SortOrder>;
+  multiple?: InputMaybe<SortOrder>;
   topic?: InputMaybe<SortOrder>;
 };
 
@@ -450,6 +488,7 @@ export type QuestionMinAggregate = {
   id?: Maybe<Scalars['Int']>;
   image?: Maybe<Scalars['String']>;
   level?: Maybe<Scalars['Int']>;
+  multiple?: Maybe<Scalars['Boolean']>;
   topic?: Maybe<TopicType>;
 };
 
@@ -459,6 +498,7 @@ export type QuestionMinOrderByAggregateInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   level?: InputMaybe<SortOrder>;
+  multiple?: InputMaybe<SortOrder>;
   topic?: InputMaybe<SortOrder>;
 };
 
@@ -473,6 +513,7 @@ export type QuestionOrderByWithAggregationInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   level?: InputMaybe<SortOrder>;
+  multiple?: InputMaybe<SortOrder>;
   options?: InputMaybe<SortOrder>;
   subTopics?: InputMaybe<SortOrder>;
   topic?: InputMaybe<SortOrder>;
@@ -484,6 +525,7 @@ export type QuestionOrderByWithRelationInput = {
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   level?: InputMaybe<SortOrder>;
+  multiple?: InputMaybe<SortOrder>;
   options?: InputMaybe<SortOrder>;
   subTopics?: InputMaybe<SortOrder>;
   topic?: InputMaybe<SortOrder>;
@@ -495,6 +537,7 @@ export enum QuestionScalarFieldEnum {
   Id = 'id',
   Image = 'image',
   Level = 'level',
+  Multiple = 'multiple',
   Options = 'options',
   SubTopics = 'subTopics',
   Topic = 'topic'
@@ -509,6 +552,7 @@ export type QuestionScalarWhereWithAggregatesInput = {
   id?: InputMaybe<IntWithAggregatesFilter>;
   image?: InputMaybe<StringNullableWithAggregatesFilter>;
   level?: InputMaybe<IntWithAggregatesFilter>;
+  multiple?: InputMaybe<BoolWithAggregatesFilter>;
   options?: InputMaybe<StringNullableListFilter>;
   subTopics?: InputMaybe<EnumSubTopicsTypeNullableListFilter>;
   topic?: InputMaybe<EnumTopicTypeWithAggregatesFilter>;
@@ -530,6 +574,7 @@ export type QuestionUpdateInput = {
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   level?: InputMaybe<IntFieldUpdateOperationsInput>;
+  multiple?: InputMaybe<BoolFieldUpdateOperationsInput>;
   options?: InputMaybe<QuestionUpdateoptionsInput>;
   subTopics?: InputMaybe<QuestionUpdatesubTopicsInput>;
   topic?: InputMaybe<EnumTopicTypeFieldUpdateOperationsInput>;
@@ -540,6 +585,7 @@ export type QuestionUpdateManyMutationInput = {
   description?: InputMaybe<StringFieldUpdateOperationsInput>;
   image?: InputMaybe<NullableStringFieldUpdateOperationsInput>;
   level?: InputMaybe<IntFieldUpdateOperationsInput>;
+  multiple?: InputMaybe<BoolFieldUpdateOperationsInput>;
   options?: InputMaybe<QuestionUpdateoptionsInput>;
   subTopics?: InputMaybe<QuestionUpdatesubTopicsInput>;
   topic?: InputMaybe<EnumTopicTypeFieldUpdateOperationsInput>;
@@ -564,6 +610,7 @@ export type QuestionWhereInput = {
   id?: InputMaybe<IntFilter>;
   image?: InputMaybe<StringNullableFilter>;
   level?: InputMaybe<IntFilter>;
+  multiple?: InputMaybe<BoolFilter>;
   options?: InputMaybe<StringNullableListFilter>;
   subTopics?: InputMaybe<EnumSubTopicsTypeNullableListFilter>;
   topic?: InputMaybe<EnumTopicTypeFilter>;

@@ -1,21 +1,19 @@
 import { Router } from "./routes/routes";
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-
 import "./App.css";
+import { Wrapper } from "./components/Wrapper";
+import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./components/Theme/theme";
 
 function App() {
-  const client = new ApolloClient({
-    uri: process.env.API_URL,
-    cache: new InMemoryCache(),
-  });
-
-  console.info(process.env.API_URL);
-
   return (
-    <ApolloProvider client={client}>
-      <Router />
-    </ApolloProvider>
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <Router />
+        <Toaster />
+      </Wrapper>
+    </ThemeProvider>
   );
 }
 

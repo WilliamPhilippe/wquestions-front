@@ -1,4 +1,9 @@
 export const ROUTES = {
   home: "/",
-  secondPage: "/secondpage",
+  question: {
+    create: "/question/create",
+  },
+  test: {
+    create: "/test/create",
+  },
 };

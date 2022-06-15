@@ -17,8 +17,20 @@ export const CREATE_QUESTION_MUTATION = gql`
 `;
 
 export const GET_QUESTIONS = gql`
-  query Question {
-    questions {
+  query Questions(
+    $where: QuestionWhereInput
+    $cursor: QuestionWhereUniqueInput
+    $distinct: [QuestionScalarFieldEnum!]
+    $skip: Int
+    $take: Int
+  ) {
+    questions(
+      where: $where
+      cursor: $cursor
+      distinct: $distinct
+      skip: $skip
+      take: $take
+    ) {
       id
       answer
       description

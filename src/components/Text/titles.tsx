@@ -8,3 +8,9 @@ export const TitleBlue = ({ text, children }: IProps) => (
     {children ?? text}
   </p>
 );
+
+export const SubTitleBlack = ({ text, children }: IProps) => (
+  <p className="text-left font-semibold text-gray-600 text-base mb-1">
+    {children ?? text}
+  </p>
+);

@@ -4,7 +4,7 @@ interface IProps {
 
 export const Wrapper = ({ children }: IProps) => {
   return (
-    <div className="w-screen max-w-full h-screen bg-gray-100 px-2 pt-4">
+    <div className="bg-contain w-screen max-w-full bg-gray-100 px-2 py-4">
       {children}
     </div>
   );

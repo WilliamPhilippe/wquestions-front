@@ -324,12 +324,7 @@ export const CreateQuestion = () => {
               Limpar
             </Button>
           </div>
-          <Button
-            disabled={loading}
-            disableElevation
-            variant="contained"
-            type="submit"
-          >
+          <Button disabled={loading} disableElevation type="submit">
             Salvar
           </Button>
         </div>

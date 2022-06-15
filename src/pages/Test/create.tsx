@@ -162,7 +162,7 @@ export const CreateTest = () => {
               Limpar
             </Button>
           </div>
-          <Button disableElevation variant="contained" type="submit">
+          <Button disableElevation type="submit">
             Criar
           </Button>
         </div>

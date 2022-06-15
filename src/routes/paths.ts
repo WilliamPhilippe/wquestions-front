@@ -5,5 +5,6 @@ export const ROUTES = {
   },
   test: {
     create: "/test/create",
+    edit: "/test/edit",
   },
 };

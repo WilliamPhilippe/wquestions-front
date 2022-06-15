@@ -83,7 +83,6 @@ export const CreateQuestion = () => {
   >(CREATE_QUESTION_MUTATION, {});
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.info("onsubmit");
     e.preventDefault();
 
     const {
@@ -136,7 +135,6 @@ export const CreateQuestion = () => {
 
   const onReset = (e?: React.FormEvent<HTMLFormElement>) => {
     e && e.preventDefault();
-    console.info("onreset");
     setFormValues({
       topic: TopicType.Matematica,
       options: [],

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Autocomplete,
   Button,
@@ -21,7 +20,6 @@ import { paramsForNewTest } from "./atoms/useAtoms";
 
 export const CreateTest = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useAtom(paramsForNewTest);
 
   const onSetFormValue = (
@@ -44,7 +42,25 @@ export const CreateTest = () => {
 
   const onSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
     e && e.preventDefault();
-    toast.success("Prova criada");
+
+    if (!formValues.subTopics?.length) {
+      return toast.error("Você precisa selecionar os assuntos.");
+    }
+
+    if (!formValues.topic) {
+      return toast.error("Você precisa selecionar a matéria.");
+    }
+
+    if (!formValues.level) {
+      return toast.error("Você precisa selecionar a dificuldade.");
+    }
+
+    if (!formValues.questionQuantity) {
+      return toast.error("Você precisa selecionar a quantidade de questões.");
+    }
+
+    toast.success("Prova criada!");
+    navigate(ROUTES.test.edit);
   };
 
   return (
@@ -133,7 +149,6 @@ export const CreateTest = () => {
               disableElevation
               variant="text"
               color="inherit"
-              disabled={loading}
               onClick={() => navigate(ROUTES.home)}
             >
               Voltar
@@ -143,17 +158,11 @@ export const CreateTest = () => {
               variant="text"
               type="reset"
               color="inherit"
-              disabled={loading}
             >
               Limpar
             </Button>
           </div>
-          <Button
-            disabled={loading}
-            disableElevation
-            variant="contained"
-            type="submit"
-          >
+          <Button disableElevation variant="contained" type="submit">
             Criar
           </Button>
         </div>

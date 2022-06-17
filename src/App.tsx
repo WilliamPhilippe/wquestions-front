@@ -9,10 +9,8 @@ import { theme } from "./components/Theme/theme";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Wrapper>
-        <Router />
-        <Toaster />
-      </Wrapper>
+      <Router />
+      <Toaster />
     </ThemeProvider>
   );
 }

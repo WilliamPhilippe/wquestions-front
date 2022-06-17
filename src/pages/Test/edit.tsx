@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Button } from "@mui/material";
 import { useAtomValue } from "jotai";
-import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CenteredContainer } from "../../components/Containers/centeredContainer";
 import { LoadingContainer } from "../../components/Loading/loading";
@@ -15,6 +15,9 @@ import { EditQuestion } from "./components/editQuestion";
 export const EditTest = () => {
   const navigate = useNavigate();
   const testParams = useAtomValue(paramsForNewTest);
+
+  const [questions, setQuestions] = useState<Question[]>([]);
+
   if (
     !testParams.topic ||
     !testParams.level ||
@@ -49,6 +52,37 @@ export const EditTest = () => {
     },
   });
 
+  useEffect(() => {
+    if (data?.questions?.length) {
+      setQuestions(data.questions);
+    }
+  }, [data, loading]);
+
+  const setToUp = (idx: number) => {
+    if (idx <= 0) return;
+
+    const tempQuestions = [...questions];
+
+    const aux = tempQuestions[idx];
+    tempQuestions[idx] = tempQuestions[idx - 1];
+    tempQuestions[idx - 1] = aux;
+
+    setQuestions(tempQuestions);
+  };
+  const setToDown = (idx: number) => {
+    if (idx >= questions.length - 1) return;
+
+    const tempQuestions = [...questions];
+
+    const aux = tempQuestions[idx];
+    tempQuestions[idx] = tempQuestions[idx + 1];
+    tempQuestions[idx + 1] = aux;
+
+    setQuestions(tempQuestions);
+  };
+  const setDelete = (idx: number) => {};
+  const edit = (idx: number) => {};
+
   if (loading) return <LoadingContainer />;
 
   if (error || !data || !data.questions) {
@@ -71,17 +105,38 @@ export const EditTest = () => {
         <TitleBlue>Edite sua prova:</TitleBlue>
         <div className="w-1/4 ml-auto text-right">
           <Button disableElevation variant="text" type="submit">
-            Salvar
+            Salvar PDF
           </Button>
         </div>
       </div>
 
       <SubTitleBlack>Questões:</SubTitleBlack>
       <ul>
-        {data.questions.map((question, idx) => (
-          <EditQuestion key={question.id} question={question} idx={idx} />
+        {questions.map((question, idx) => (
+          <EditQuestion
+            key={question.id}
+            question={question}
+            idx={idx}
+            setDelete={() => setDelete(idx)}
+            setToDown={() => setToDown(idx)}
+            setToUp={() => setToUp(idx)}
+            edit={() => edit(idx)}
+          />
         ))}
       </ul>
+      <div className="flex flex-row justify-between">
+        <Button
+          disableElevation
+          variant="text"
+          color="inherit"
+          onClick={() => navigate(ROUTES.home)}
+        >
+          Voltar
+        </Button>
+        <Button disableElevation variant="text" type="submit">
+          Salvar PDF
+        </Button>
+      </div>
     </CenteredContainer>
   );
 };

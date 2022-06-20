@@ -155,7 +155,7 @@ export const CreateQuestion = () => {
           sx={{ marginBottom: "1rem" }}
           id="description"
           label="Descrição"
-          placeholder="Descrição da questão, incluindo as alternativas"
+          placeholder="Descrição da questão"
           multiline
           required
           fullWidth

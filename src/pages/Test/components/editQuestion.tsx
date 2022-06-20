@@ -2,32 +2,35 @@ import {
   ArrowCircleDownRounded,
   ArrowCircleUpRounded,
   DeleteRounded,
-  EditRounded,
 } from "@mui/icons-material";
+import { useState } from "react";
 import { Question } from "../../../types.d";
 import { formatSetence } from "../../../utils/text/formatInput";
+import { PickQuestionForModal } from "../types";
+import { ModalOnEditQuestion } from "./modalOnEditQuestion";
 
 interface IProps {
   question: Question;
   idx: number;
   setToUp: () => void;
   setToDown: () => void;
-  setDelete: () => void;
-  edit: () => void;
+  onDelete: () => void;
+  onEdit: (idx: number, question: PickQuestionForModal) => void;
 }
 
 export const EditQuestion = ({
   question,
-  edit,
+  onEdit,
   idx,
-  setDelete,
+  onDelete,
   setToDown,
   setToUp,
 }: IProps) => {
+  const [imgError, setImgError] = useState(false);
   return (
     <li className="flex flex-col justify-center items-stretch border rounded mb-4 py-2 px-4">
       <div className="flex flex-row justify-between items-center">
-        <div></div>
+        <div />
         <div>
           <ArrowCircleDownRounded
             className="text-gray-400 hover:text-gray-600 cursor-pointer"
@@ -37,14 +40,18 @@ export const EditQuestion = ({
             className="text-gray-400 hover:text-gray-600 cursor-pointer"
             onClick={setToUp}
           />
-          <EditRounded className="text-gray-400 hover:text-gray-600 cursor-pointer ml-2" />
-          <DeleteRounded className="text-gray-400 hover:text-red-600 cursor-pointer" />
+          <ModalOnEditQuestion idx={idx} question={question} onEdit={onEdit} />
+          <DeleteRounded
+            className="text-gray-400 hover:text-red-600 cursor-pointer"
+            onClick={onDelete}
+          />
         </div>
       </div>
       <p className="text-left  ">{formatSetence(question.description)}</p>
-      {question.image && (
+      {question.image && !imgError && (
         <img
           className="max-w-xs mx-auto"
+          onError={() => setImgError(true)}
           src={question.image}
           alt={question.description}
         />

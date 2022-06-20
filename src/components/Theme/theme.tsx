@@ -10,6 +10,9 @@ export const theme = createTheme({
           paddingBottom: 3,
         },
       },
+      defaultProps: {
+        disableElevation: true,
+      },
     },
   },
 });

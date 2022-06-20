@@ -1,4 +1,4 @@
-import { SubTopicsType, TopicType } from "../../types";
+import { Question, SubTopicsType, TopicType } from "../../types";
 
 export type TestType = {
   topic: TopicType;
@@ -6,3 +6,8 @@ export type TestType = {
   questionQuantity: number;
   level: number;
 };
+
+export type PickQuestionForModal = Pick<
+  Question,
+  "description" | "answer" | "multiple" | "image" | "options"
+>;

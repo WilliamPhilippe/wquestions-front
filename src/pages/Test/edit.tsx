@@ -11,6 +11,7 @@ import { ROUTES } from "../../routes/paths";
 import { QueryQuestionsArgs, Question } from "../../types";
 import { paramsForNewTest } from "./atoms/useAtoms";
 import { EditQuestion } from "./components/editQuestion";
+import { PickQuestionForModal } from "./types";
 
 export const EditTest = () => {
   const navigate = useNavigate();
@@ -69,6 +70,7 @@ export const EditTest = () => {
 
     setQuestions(tempQuestions);
   };
+
   const setToDown = (idx: number) => {
     if (idx >= questions.length - 1) return;
 
@@ -80,8 +82,35 @@ export const EditTest = () => {
 
     setQuestions(tempQuestions);
   };
-  const setDelete = (idx: number) => {};
-  const edit = (idx: number) => {};
+
+  const onDelete = (idx: number) => {
+    setQuestions((state) => state.filter((_, index) => idx !== index));
+  };
+
+  const onEdit = (index: number, question: PickQuestionForModal) => {
+    setQuestions((state) =>
+      state.map((q, indexMap) => {
+        return index === indexMap
+          ? {
+              id: q.id,
+              level: q.level,
+              subTopics: q.subTopics,
+              topic: q.topic,
+
+              description: question.description,
+              answer: question.answer,
+              image: question.image,
+              options: question.options,
+              multiple: question.multiple,
+            }
+          : q;
+      })
+    );
+  };
+
+  useEffect(() => {
+    console.info("use", questions);
+  }, [questions]);
 
   if (loading) return <LoadingContainer />;
 
@@ -117,10 +146,10 @@ export const EditTest = () => {
             key={question.id}
             question={question}
             idx={idx}
-            setDelete={() => setDelete(idx)}
+            onDelete={() => onDelete(idx)}
             setToDown={() => setToDown(idx)}
             setToUp={() => setToUp(idx)}
-            edit={() => edit(idx)}
+            onEdit={onEdit}
           />
         ))}
       </ul>

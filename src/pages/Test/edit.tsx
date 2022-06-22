@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Button } from "@mui/material";
-import { useAtomValue } from "jotai";
-import { useEffect, useState } from "react";
+import { useAtom, useAtomValue } from "jotai";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CenteredContainer } from "../../components/Containers/centeredContainer";
 import { LoadingContainer } from "../../components/Loading/loading";
@@ -9,15 +9,16 @@ import { SubTitleBlack, TitleBlue } from "../../components/Text/titles";
 import { GET_QUESTIONS } from "../../data/question";
 import { ROUTES } from "../../routes/paths";
 import { QueryQuestionsArgs, Question } from "../../types";
-import { paramsForNewTest } from "./atoms/useAtoms";
+import { paramsForNewTest, questionsListAtom } from "./atoms/useAtoms";
 import { EditQuestion } from "./components/editQuestion";
+import { AddQuestion } from "./components/addQuestion/modalAddQuestion";
 import { PickQuestionForModal } from "./types";
 
 export const EditTest = () => {
   const navigate = useNavigate();
   const testParams = useAtomValue(paramsForNewTest);
 
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useAtom(questionsListAtom);
 
   if (
     !testParams.topic ||
@@ -51,12 +52,14 @@ export const EditTest = () => {
         ],
       },
     },
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
     if (data?.questions?.length) {
       setQuestions(data.questions);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading]);
 
   const setToUp = (idx: number) => {
@@ -126,7 +129,7 @@ export const EditTest = () => {
             disableElevation
             variant="text"
             color="inherit"
-            onClick={() => navigate(ROUTES.home)}
+            onClick={() => navigate(ROUTES.test.create)}
           >
             Voltar
           </Button>
@@ -153,12 +156,15 @@ export const EditTest = () => {
           />
         ))}
       </ul>
+
+      <AddQuestion />
+
       <div className="flex flex-row justify-between">
         <Button
           disableElevation
           variant="text"
           color="inherit"
-          onClick={() => navigate(ROUTES.home)}
+          onClick={() => navigate(ROUTES.test.create)}
         >
           Voltar
         </Button>

@@ -162,7 +162,11 @@ export const CreateTest = () => {
               Limpar
             </Button>
           </div>
-          <Button disableElevation type="submit">
+          <Button
+            disableElevation
+            type="submit"
+            disabled={formValues.subTopics.length === 0}
+          >
             Criar
           </Button>
         </div>

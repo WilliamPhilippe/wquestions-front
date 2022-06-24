@@ -1,5 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Button } from "@mui/material";
+import toast from "react-hot-toast";
+
 import { useAtom, useAtomValue } from "jotai";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +15,7 @@ import { paramsForNewTest, questionsListAtom } from "./atoms/useAtoms";
 import { EditQuestion } from "./components/editQuestion";
 import { AddQuestion } from "./components/addQuestion/modalAddQuestion";
 import { PickQuestionForModal } from "./types";
+import { ModalOnCreateQuestion } from "./components/modalOnCreateQuestion";
 
 export const EditTest = () => {
   const navigate = useNavigate();
@@ -111,9 +114,12 @@ export const EditTest = () => {
     );
   };
 
-  useEffect(() => {
-    console.info("use", questions);
-  }, [questions]);
+  const onCreateQuestion = (question: Question) => {
+    if (!question.id || !question.description || !question.answer) {
+      return toast.error("Descrição e resposta são obrigatórios.");
+    }
+    setQuestions((state) => [...state, question]);
+  };
 
   if (loading) return <LoadingContainer />;
 
@@ -157,7 +163,10 @@ export const EditTest = () => {
         ))}
       </ul>
 
-      <AddQuestion />
+      <div className="flex flex-row justify-between items-center">
+        <AddQuestion />
+        <ModalOnCreateQuestion onCreate={onCreateQuestion} />
+      </div>
 
       <div className="flex flex-row justify-between">
         <Button

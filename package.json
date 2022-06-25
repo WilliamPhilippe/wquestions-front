@@ -22,6 +22,7 @@
     "browserify-fs": "^1.0.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
+    "file-saver": "^2.0.5",
     "graphql": "^16.5.0",
     "jotai": "^1.7.2",
     "lodash": "^4.17.21",
@@ -68,6 +69,7 @@
     "@graphql-codegen/typescript": "2.5.0",
     "@graphql-codegen/typescript-operations": "2.4.1",
     "@graphql-codegen/typescript-react-apollo": "3.2.15",
+    "@types/file-saver": "^2.0.5",
     "@types/lodash": "^4.14.182",
     "@types/react-router-dom": "^5.3.3",
     "tailwindcss": "^3.0.24"

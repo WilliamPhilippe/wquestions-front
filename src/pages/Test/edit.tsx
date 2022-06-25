@@ -16,6 +16,7 @@ import { EditQuestion } from "./components/editQuestion";
 import { AddQuestion } from "./components/addQuestion/modalAddQuestion";
 import { PickQuestionForModal } from "./types";
 import { ModalOnCreateQuestion } from "./components/modalOnCreateQuestion";
+import { PdfDownloadButton } from "./components/pdf/downloadButton";
 
 export const EditTest = () => {
   const navigate = useNavigate();
@@ -177,9 +178,10 @@ export const EditTest = () => {
         >
           Voltar
         </Button>
-        <Button disableElevation variant="text" type="submit">
-          Salvar PDF
-        </Button>
+        <div>
+          <PdfDownloadButton questions={questions} />
+          <PdfDownloadButton questions={questions} aleatory />
+        </div>
       </div>
     </CenteredContainer>
   );

@@ -9,3 +9,9 @@ export const GET_TESTS_QUERY = gql`
     }
   }
 `;
+
+export const CREATE_TEST_MUTATION = gql`
+  mutation CustomCreateTest($data: TestCreateInput!) {
+    customCreateTest(data: $data)
+  }
+`;

@@ -168,6 +168,7 @@ export type Mutation = {
   createManyTest: AffectedRowsOutput;
   createQuestion: Question;
   createTest: Test;
+  customCreateTest: Scalars['Boolean'];
   deleteManyQuestion: AffectedRowsOutput;
   deleteManyTest: AffectedRowsOutput;
   deleteQuestion?: Maybe<Question>;
@@ -199,6 +200,11 @@ export type MutationCreateQuestionArgs = {
 
 
 export type MutationCreateTestArgs = {
+  data: TestCreateInput;
+};
+
+
+export type MutationCustomCreateTestArgs = {
   data: TestCreateInput;
 };
 

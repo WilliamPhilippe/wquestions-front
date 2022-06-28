@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Button } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import toast from "react-hot-toast";
 
 import { useAtom, useAtomValue } from "jotai";
@@ -144,10 +144,11 @@ export const EditTest = () => {
         <TitleBlue>Edite sua prova:</TitleBlue>
         <div className="w-1/4 ml-auto text-right">
           <Button disableElevation variant="text" type="submit">
-            Salvar PDF
+            Guardar Questões
           </Button>
         </div>
       </div>
+      <Divider />
 
       <SubTitleBlack>Questões:</SubTitleBlack>
       <ul>
@@ -168,8 +169,8 @@ export const EditTest = () => {
         <AddQuestion />
         <ModalOnCreateQuestion onCreate={onCreateQuestion} />
       </div>
-
-      <div className="flex flex-row justify-between">
+      <Divider />
+      <div className="flex flex-row justify-between mt-2">
         <Button
           disableElevation
           variant="text"
@@ -179,6 +180,7 @@ export const EditTest = () => {
           Voltar
         </Button>
         <div>
+          <PdfDownloadButton questions={questions} withAnswers />
           <PdfDownloadButton questions={questions} />
           <PdfDownloadButton questions={questions} aleatory />
         </div>

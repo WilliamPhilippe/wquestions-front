@@ -10,6 +10,10 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: any;
 };
 
 export type AffectedRowsOutput = {
@@ -24,6 +28,15 @@ export type AggregateQuestion = {
   _max?: Maybe<QuestionMaxAggregate>;
   _min?: Maybe<QuestionMinAggregate>;
   _sum?: Maybe<QuestionSumAggregate>;
+};
+
+export type AggregateTest = {
+  __typename?: 'AggregateTest';
+  _avg?: Maybe<TestAvgAggregate>;
+  _count?: Maybe<TestCountAggregate>;
+  _max?: Maybe<TestMaxAggregate>;
+  _min?: Maybe<TestMinAggregate>;
+  _sum?: Maybe<TestSumAggregate>;
 };
 
 export type BoolFieldUpdateOperationsInput = {
@@ -41,6 +54,35 @@ export type BoolWithAggregatesFilter = {
   _min?: InputMaybe<NestedBoolFilter>;
   equals?: InputMaybe<Scalars['Boolean']>;
   not?: InputMaybe<NestedBoolWithAggregatesFilter>;
+};
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type DateTimeFilter = {
+  equals?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  in?: InputMaybe<Array<Scalars['DateTime']>>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+  not?: InputMaybe<NestedDateTimeFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']>>;
+};
+
+export type DateTimeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedDateTimeFilter>;
+  _min?: InputMaybe<NestedDateTimeFilter>;
+  equals?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  in?: InputMaybe<Array<Scalars['DateTime']>>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+  not?: InputMaybe<NestedDateTimeWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
 export type EnumSubTopicsTypeNullableListFilter = {
@@ -107,15 +149,35 @@ export type IntWithAggregatesFilter = {
   notIn?: InputMaybe<Array<Scalars['Int']>>;
 };
 
+export type JsonFilter = {
+  equals?: InputMaybe<Scalars['JSON']>;
+  not?: InputMaybe<Scalars['JSON']>;
+};
+
+export type JsonWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedJsonFilter>;
+  _min?: InputMaybe<NestedJsonFilter>;
+  equals?: InputMaybe<Scalars['JSON']>;
+  not?: InputMaybe<Scalars['JSON']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createManyQuestion: AffectedRowsOutput;
+  createManyTest: AffectedRowsOutput;
   createQuestion: Question;
+  createTest: Test;
   deleteManyQuestion: AffectedRowsOutput;
+  deleteManyTest: AffectedRowsOutput;
   deleteQuestion?: Maybe<Question>;
+  deleteTest?: Maybe<Test>;
   updateManyQuestion: AffectedRowsOutput;
+  updateManyTest: AffectedRowsOutput;
   updateQuestion?: Maybe<Question>;
+  updateTest?: Maybe<Test>;
   upsertQuestion: Question;
+  upsertTest: Test;
 };
 
 
@@ -125,8 +187,19 @@ export type MutationCreateManyQuestionArgs = {
 };
 
 
+export type MutationCreateManyTestArgs = {
+  data: Array<TestCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+
 export type MutationCreateQuestionArgs = {
   data: QuestionCreateInput;
+};
+
+
+export type MutationCreateTestArgs = {
+  data: TestCreateInput;
 };
 
 
@@ -135,8 +208,18 @@ export type MutationDeleteManyQuestionArgs = {
 };
 
 
+export type MutationDeleteManyTestArgs = {
+  where?: InputMaybe<TestWhereInput>;
+};
+
+
 export type MutationDeleteQuestionArgs = {
   where: QuestionWhereUniqueInput;
+};
+
+
+export type MutationDeleteTestArgs = {
+  where: TestWhereUniqueInput;
 };
 
 
@@ -146,9 +229,21 @@ export type MutationUpdateManyQuestionArgs = {
 };
 
 
+export type MutationUpdateManyTestArgs = {
+  data: TestUpdateManyMutationInput;
+  where?: InputMaybe<TestWhereInput>;
+};
+
+
 export type MutationUpdateQuestionArgs = {
   data: QuestionUpdateInput;
   where: QuestionWhereUniqueInput;
+};
+
+
+export type MutationUpdateTestArgs = {
+  data: TestUpdateInput;
+  where: TestWhereUniqueInput;
 };
 
 
@@ -156,6 +251,13 @@ export type MutationUpsertQuestionArgs = {
   create: QuestionCreateInput;
   update: QuestionUpdateInput;
   where: QuestionWhereUniqueInput;
+};
+
+
+export type MutationUpsertTestArgs = {
+  create: TestCreateInput;
+  update: TestUpdateInput;
+  where: TestWhereUniqueInput;
 };
 
 export type NestedBoolFilter = {
@@ -169,6 +271,31 @@ export type NestedBoolWithAggregatesFilter = {
   _min?: InputMaybe<NestedBoolFilter>;
   equals?: InputMaybe<Scalars['Boolean']>;
   not?: InputMaybe<NestedBoolWithAggregatesFilter>;
+};
+
+export type NestedDateTimeFilter = {
+  equals?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  in?: InputMaybe<Array<Scalars['DateTime']>>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+  not?: InputMaybe<NestedDateTimeFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']>>;
+};
+
+export type NestedDateTimeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedDateTimeFilter>;
+  _min?: InputMaybe<NestedDateTimeFilter>;
+  equals?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']>;
+  in?: InputMaybe<Array<Scalars['DateTime']>>;
+  lt?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']>;
+  not?: InputMaybe<NestedDateTimeWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<Scalars['DateTime']>>;
 };
 
 export type NestedEnumTopicTypeFilter = {
@@ -235,6 +362,11 @@ export type NestedIntWithAggregatesFilter = {
   lte?: InputMaybe<Scalars['Int']>;
   not?: InputMaybe<NestedIntWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type NestedJsonFilter = {
+  equals?: InputMaybe<Scalars['JSON']>;
+  not?: InputMaybe<Scalars['JSON']>;
 };
 
 export type NestedStringFilter = {
@@ -306,10 +438,15 @@ export type NullableStringFieldUpdateOperationsInput = {
 export type Query = {
   __typename?: 'Query';
   aggregateQuestion: AggregateQuestion;
+  aggregateTest: AggregateTest;
   findFirstQuestion?: Maybe<Question>;
+  findFirstTest?: Maybe<Test>;
   groupByQuestion: Array<QuestionGroupBy>;
+  groupByTest: Array<TestGroupBy>;
   question?: Maybe<Question>;
   questions: Array<Question>;
+  test?: Maybe<Test>;
+  tests: Array<Test>;
 };
 
 
@@ -319,6 +456,15 @@ export type QueryAggregateQuestionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<QuestionWhereInput>;
+};
+
+
+export type QueryAggregateTestArgs = {
+  cursor?: InputMaybe<TestWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<TestOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TestWhereInput>;
 };
 
 
@@ -332,6 +478,16 @@ export type QueryFindFirstQuestionArgs = {
 };
 
 
+export type QueryFindFirstTestArgs = {
+  cursor?: InputMaybe<TestWhereUniqueInput>;
+  distinct?: InputMaybe<Array<TestScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<TestOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TestWhereInput>;
+};
+
+
 export type QueryGroupByQuestionArgs = {
   by: Array<QuestionScalarFieldEnum>;
   having?: InputMaybe<QuestionScalarWhereWithAggregatesInput>;
@@ -339,6 +495,16 @@ export type QueryGroupByQuestionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<QuestionWhereInput>;
+};
+
+
+export type QueryGroupByTestArgs = {
+  by: Array<TestScalarFieldEnum>;
+  having?: InputMaybe<TestScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<TestOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TestWhereInput>;
 };
 
 
@@ -354,6 +520,21 @@ export type QueryQuestionsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<QuestionWhereInput>;
+};
+
+
+export type QueryTestArgs = {
+  where: TestWhereUniqueInput;
+};
+
+
+export type QueryTestsArgs = {
+  cursor?: InputMaybe<TestWhereUniqueInput>;
+  distinct?: InputMaybe<Array<TestScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<TestOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<TestWhereInput>;
 };
 
 export enum QueryMode {
@@ -735,6 +916,162 @@ export enum SubTopicsType {
   Tempo = 'TEMPO',
   Triangulos = 'TRIANGULOS'
 }
+
+export type Test = {
+  __typename?: 'Test';
+  createdAt: Scalars['DateTime'];
+  data: Scalars['JSON'];
+  id: Scalars['Int'];
+  userKey: Scalars['String'];
+};
+
+export type TestAvgAggregate = {
+  __typename?: 'TestAvgAggregate';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type TestAvgOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+};
+
+export type TestCountAggregate = {
+  __typename?: 'TestCountAggregate';
+  _all: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  data: Scalars['Int'];
+  id: Scalars['Int'];
+  userKey: Scalars['Int'];
+};
+
+export type TestCountOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  data?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export type TestCreateInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  data: Scalars['JSON'];
+  userKey: Scalars['String'];
+};
+
+export type TestCreateManyInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  data: Scalars['JSON'];
+  id?: InputMaybe<Scalars['Int']>;
+  userKey: Scalars['String'];
+};
+
+export type TestGroupBy = {
+  __typename?: 'TestGroupBy';
+  _avg?: Maybe<TestAvgAggregate>;
+  _count?: Maybe<TestCountAggregate>;
+  _max?: Maybe<TestMaxAggregate>;
+  _min?: Maybe<TestMinAggregate>;
+  _sum?: Maybe<TestSumAggregate>;
+  createdAt: Scalars['DateTime'];
+  data: Scalars['JSON'];
+  id: Scalars['Int'];
+  userKey: Scalars['String'];
+};
+
+export type TestMaxAggregate = {
+  __typename?: 'TestMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  userKey?: Maybe<Scalars['String']>;
+};
+
+export type TestMaxOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export type TestMinAggregate = {
+  __typename?: 'TestMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  userKey?: Maybe<Scalars['String']>;
+};
+
+export type TestMinOrderByAggregateInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export type TestOrderByWithAggregationInput = {
+  _avg?: InputMaybe<TestAvgOrderByAggregateInput>;
+  _count?: InputMaybe<TestCountOrderByAggregateInput>;
+  _max?: InputMaybe<TestMaxOrderByAggregateInput>;
+  _min?: InputMaybe<TestMinOrderByAggregateInput>;
+  _sum?: InputMaybe<TestSumOrderByAggregateInput>;
+  createdAt?: InputMaybe<SortOrder>;
+  data?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export type TestOrderByWithRelationInput = {
+  createdAt?: InputMaybe<SortOrder>;
+  data?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export enum TestScalarFieldEnum {
+  CreatedAt = 'createdAt',
+  Data = 'data',
+  Id = 'id',
+  UserKey = 'userKey'
+}
+
+export type TestScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<TestScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<TestScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<TestScalarWhereWithAggregatesInput>>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  data?: InputMaybe<JsonWithAggregatesFilter>;
+  id?: InputMaybe<IntWithAggregatesFilter>;
+  userKey?: InputMaybe<StringWithAggregatesFilter>;
+};
+
+export type TestSumAggregate = {
+  __typename?: 'TestSumAggregate';
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type TestSumOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+};
+
+export type TestUpdateInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  data?: InputMaybe<Scalars['JSON']>;
+  userKey?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type TestUpdateManyMutationInput = {
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  data?: InputMaybe<Scalars['JSON']>;
+  userKey?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type TestWhereInput = {
+  AND?: InputMaybe<Array<TestWhereInput>>;
+  NOT?: InputMaybe<Array<TestWhereInput>>;
+  OR?: InputMaybe<Array<TestWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  data?: InputMaybe<JsonFilter>;
+  id?: InputMaybe<IntFilter>;
+  userKey?: InputMaybe<StringFilter>;
+};
+
+export type TestWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
+};
 
 export enum TopicType {
   Artes = 'ARTES',

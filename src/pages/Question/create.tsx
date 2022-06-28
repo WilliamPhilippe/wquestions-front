@@ -22,11 +22,11 @@ import {
   SubTopicsType,
   TopicType,
 } from "../../types.d";
-import { formatEnum } from "../../utils/text/formatInput";
 import { ROUTES } from "../../routes/paths";
 import { getCharFromIndex } from "../../utils/text/getCharFromIndex";
 import { CenteredContainer } from "../../components/Containers/centeredContainer";
 import { TitleBlue } from "../../components/Text/titles";
+import { getSubTopicWord } from "../../utils/text/mapSubTopics";
 
 export const CreateQuestion = () => {
   const navigate = useNavigate();
@@ -268,7 +268,7 @@ export const CreateQuestion = () => {
           id="subTopics"
           multiple
           options={Object.values(SubTopicsType)}
-          getOptionLabel={(op) => formatEnum(op)}
+          getOptionLabel={(op) => getSubTopicWord(op)}
           onChange={(_, value) => onSetFormValue("subTopics", value)}
           value={formValues.subTopics}
           disableCloseOnSelect

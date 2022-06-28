@@ -7,16 +7,16 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import toast from "react-hot-toast";
 import { CenteredContainer } from "../../components/Containers/centeredContainer";
 import { TitleBlue } from "../../components/Text/titles";
 import { SubTopicsType, TopicType } from "../../types.d";
 import { TestType } from "./types.d";
-import { formatEnum } from "../../utils/text/formatInput";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes/paths";
-import toast from "react-hot-toast";
 import { useAtom } from "jotai";
 import { paramsForNewTest } from "./atoms/useAtoms";
+import { getSubTopicWord } from "../../utils/text/mapSubTopics";
 
 export const CreateTest = () => {
   const navigate = useNavigate();
@@ -87,7 +87,7 @@ export const CreateTest = () => {
           id="subTopics"
           multiple
           options={Object.values(SubTopicsType)}
-          getOptionLabel={(op) => formatEnum(op)}
+          getOptionLabel={(op) => getSubTopicWord(op)}
           onChange={(_, value) => onSetFormValue("subTopics", value)}
           value={formValues.subTopics}
           disableCloseOnSelect

@@ -12,6 +12,7 @@ import { formatSetence } from "../../../../utils/text/formatInput";
 
 interface IProps {
   questions: Question[];
+  withAnswers?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -56,9 +57,11 @@ const styles = StyleSheet.create({
 const QuestionView = ({
   question,
   position,
+  withAnswers,
 }: {
   question: Question;
   position: number;
+  withAnswers?: boolean;
 }) => {
   return (
     <View style={styles.view} wrap={false}>
@@ -73,6 +76,9 @@ const QuestionView = ({
             {op}
           </Text>
         ))}
+      {!!withAnswers && (
+        <Text style={styles.description}>Resposta: {question.answer}</Text>
+      )}
     </View>
   );
 };
@@ -88,7 +94,7 @@ const Header = () => {
     </View>
   );
 };
-export const MyDoc = ({ questions }: IProps) => {
+export const MyDoc = ({ questions, withAnswers }: IProps) => {
   useEffect(() => {
     console.info("inside", questions);
   }, [questions]);
@@ -98,7 +104,12 @@ export const MyDoc = ({ questions }: IProps) => {
       <Page size="A4" style={styles.page}>
         <Header></Header>
         {questions.map((q, idx) => (
-          <QuestionView key={q.id} question={q} position={idx + 1} />
+          <QuestionView
+            key={q.id}
+            question={q}
+            position={idx + 1}
+            withAnswers={withAnswers}
+          />
         ))}
       </Page>
     </Document>

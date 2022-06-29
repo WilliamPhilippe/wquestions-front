@@ -1,17 +1,13 @@
 import { atom } from "jotai";
-import { Question, SubTopicsType, TopicType } from "../../../types.d";
+import { Question, TopicType } from "../../../types.d";
 import { TestType } from "../types";
 
 export const paramsForNewTest = atom<TestType>({
   level: 3,
   questionQuantity: 10,
-  subTopics: [
-    SubTopicsType.Soma,
-    SubTopicsType.Subtracao,
-    SubTopicsType.Angulos,
-    SubTopicsType.Divisao,
-  ],
+  subTopics: [],
   topic: TopicType.Matematica,
+  topicLogic: "OR",
 });
 
 export const questionsListAtom = atom<Question[]>([]);

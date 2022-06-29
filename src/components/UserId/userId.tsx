@@ -1,20 +1,20 @@
 import { useQuery } from "@apollo/client";
 import { Divider } from "@mui/material";
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { GET_TESTS_QUERY } from "../../data/test";
-import { Query, QueryTestsArgs, Test } from "../../types.d";
+import { Query, QueryTestsArgs } from "../../types.d";
 import { ModalUserId } from "./modalUserId";
+import { TestLI } from "./testLI";
 import { userIdAtom } from "./userIdAtom";
 
 const userIdKey = "USER_ID_STORE";
 
 export const UserId = () => {
   const [userIdValue, setUserIdValue] = useAtom(userIdAtom);
-  const [tests, setTests] = useState<Test[]>([]);
 
-  const { data, loading, error } = useQuery<
+  const { data } = useQuery<
     Pick<Query, "tests">,
     Pick<QueryTestsArgs, "where">
   >(GET_TESTS_QUERY, {
@@ -23,6 +23,7 @@ export const UserId = () => {
         userKey: { equals: userIdValue || "-%" },
       },
     },
+    fetchPolicy: "cache-and-network",
   });
 
   useEffect(() => {
@@ -71,13 +72,18 @@ export const UserId = () => {
       <Divider sx={{ marginBottom: "1rem", marginTop: "1rem" }} />
       <div>
         <p>Suas provas:</p>
-        {data?.tests?.length ? (
-          <div />
-        ) : (
+
+        {!data?.tests.length && (
           <h4 className="text-center text-gray-500 mt-3 text-sm mb-2">
             Você não tem provas salvas
           </h4>
         )}
+
+        <div className="ml-2 w-full flex flex-row items-start justify-start flex-wrap place-content-start content-start">
+          {data?.tests.map((test) => (
+            <TestLI test={test} key={test.id} />
+          ))}
+        </div>
       </div>
     </>
   );

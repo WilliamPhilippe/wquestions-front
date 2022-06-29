@@ -5,6 +5,7 @@ export type TestType = {
   subTopics: SubTopicsType[];
   questionQuantity: number;
   level: number;
+  topicLogic: "AND" | "OR";
 };
 
 export type PickQuestionForModal = Pick<

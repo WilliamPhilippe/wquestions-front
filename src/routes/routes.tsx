@@ -12,7 +12,10 @@ export const Router = () => {
         <Route path={ROUTES.home} element={<Home />} />
         <Route path={ROUTES.question.create} element={<CreateQuestion />} />
         <Route path={ROUTES.test.create} element={<CreateTest />} />
-        <Route path={ROUTES.test.edit} element={<EditTest />} />
+        <Route path={ROUTES.test.edit}>
+          <Route path={ROUTES.test.edit_mode} element={<EditTest />} />
+          <Route path={""} element={<EditTest />} />
+        </Route>
       </RouterDom>
     </BrowserRouter>
   );

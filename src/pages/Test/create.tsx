@@ -1,7 +1,9 @@
 import {
   Autocomplete,
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
@@ -37,6 +39,7 @@ export const CreateTest = () => {
       level: 5,
       questionQuantity: 1,
       subTopics: [],
+      topicLogic: "OR",
     });
   };
 
@@ -100,6 +103,29 @@ export const CreateTest = () => {
               placeholder="Escolha os assuntos"
             />
           )}
+        />
+
+        <FormControlLabel
+          label={
+            <span className="text-sm">
+              Cada questão deve ter TODOS os assuntos selecionados?
+            </span>
+          }
+          sx={{
+            marginBottom: "1rem",
+            marginTop: -2,
+          }}
+          control={
+            <Checkbox
+              checked={formValues.topicLogic === "AND"}
+              onChange={() =>
+                onSetFormValue(
+                  "topicLogic",
+                  formValues.topicLogic === "OR" ? "AND" : "OR"
+                )
+              }
+            />
+          }
         />
 
         <div className="flex flex-row justify-between item-center">

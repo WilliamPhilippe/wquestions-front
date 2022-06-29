@@ -6,6 +6,7 @@ export const GET_TESTS_QUERY = gql`
       id
       data
       userKey
+      createdAt
     }
   }
 `;

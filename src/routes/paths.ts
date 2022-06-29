@@ -6,5 +6,6 @@ export const ROUTES = {
   test: {
     create: "/test/create",
     edit: "/test/edit",
+    edit_mode: "/test/edit/:mode",
   },
 };

@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Button, Divider } from "@mui/material";
 import toast from "react-hot-toast";
-
 import { useAtom, useAtomValue } from "jotai";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { CenteredContainer } from "../../components/Containers/centeredContainer";
 import { LoadingContainer } from "../../components/Loading/loading";
 import { SubTitleBlack, TitleBlue } from "../../components/Text/titles";
@@ -14,7 +14,7 @@ import {
   MutationCustomCreateTestArgs,
   QueryQuestionsArgs,
   Question,
-} from "../../types";
+} from "../../types.d";
 import { paramsForNewTest, questionsListAtom } from "./atoms/useAtoms";
 import { EditQuestion } from "./components/editQuestion";
 import { AddQuestion } from "./components/addQuestion/modalAddQuestion";
@@ -23,18 +23,23 @@ import { ModalOnCreateQuestion } from "./components/modalOnCreateQuestion";
 import { PdfDownloadButton } from "./components/pdf/downloadButton";
 import { CREATE_TEST_MUTATION } from "../../data/test";
 import { userIdAtom } from "../../components/UserId/userIdAtom";
+import { FROM_EXISTING_PATH } from "../../utils/consts";
 
 export const EditTest = () => {
+  const { mode } = useParams();
   const navigate = useNavigate();
   const testParams = useAtomValue(paramsForNewTest);
   const userIdKey = useAtomValue(userIdAtom);
   const [questions, setQuestions] = useAtom(questionsListAtom);
 
+  const fromExisting = mode === FROM_EXISTING_PATH;
+
   if (
-    !testParams.topic ||
-    !testParams.level ||
-    !testParams.questionQuantity ||
-    !testParams.subTopics.length
+    !fromExisting &&
+    (!testParams.topic ||
+      !testParams.level ||
+      !testParams.questionQuantity ||
+      !testParams.subTopics.length)
   ) {
     navigate(ROUTES.test.create);
   }
@@ -48,7 +53,12 @@ export const EditTest = () => {
       where: {
         AND: [
           { topic: { equals: testParams.topic } },
-          { subTopics: { hasSome: testParams.subTopics } },
+          {
+            subTopics:
+              testParams.topicLogic === "AND"
+                ? { hasEvery: testParams.subTopics }
+                : { hasSome: testParams.subTopics },
+          },
           {
             level: {
               gte: testParams.level - 2 > 0 ? testParams.level - 2 : 1,
@@ -66,7 +76,7 @@ export const EditTest = () => {
   });
 
   useEffect(() => {
-    if (data?.questions?.length) {
+    if (!fromExisting && data?.questions?.length) {
       setQuestions(data.questions);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -171,7 +181,7 @@ export const EditTest = () => {
             disableElevation
             variant="text"
             color="inherit"
-            onClick={() => navigate(ROUTES.test.create)}
+            onClick={() => navigate(-1)}
           >
             Voltar
           </Button>
@@ -210,7 +220,7 @@ export const EditTest = () => {
           disableElevation
           variant="text"
           color="inherit"
-          onClick={() => navigate(ROUTES.test.create)}
+          onClick={() => navigate(-1)}
         >
           Voltar
         </Button>

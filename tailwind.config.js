@@ -1,4 +1,3 @@
-
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
@@ -10,8 +9,15 @@ module.exports = {
       80: "80%",
       90: "90%",
       full: "100%",
+      "fit3": "31.5%",
     },
     extend: {
+      width: {
+        "fit3": "31%",
+      },
+      minHeight: {
+        28: "7rem"
+      },
       keyframes: {
         wiggle: {
           "0%, 100%": { transform: "rotate(-1deg)" },

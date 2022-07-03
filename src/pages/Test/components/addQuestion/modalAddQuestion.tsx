@@ -5,14 +5,16 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
+import { UseAuditLogContext } from "../../../../context/useAuditLog";
 import { Question, SubTopicsType, TopicType } from "../../../../types.d";
 import { FilterSection } from "./filterSection";
 import { QuestionsSection } from "./questionsSection";
 import { useSearch } from "./useSearch";
 
 export const AddQuestion = () => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [topicFilter] = useState<TopicType>(TopicType.Matematica);
@@ -41,7 +43,10 @@ export const AddQuestion = () => {
       {modalOpen && (
         <Dialog
           open={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={onDispatchAction(
+            () => setModalOpen(false),
+            "CONCLUIR_MODAL_MAIS_QUESTOES"
+          )}
           fullWidth
           maxWidth="md"
         >
@@ -72,14 +77,24 @@ export const AddQuestion = () => {
               paddingTop: "0.5rem",
             }}
           >
-            <Button onClick={() => setModalOpen(false)}>Concluir</Button>
+            <Button
+              onClick={onDispatchAction(
+                () => setModalOpen(false),
+                "CONCLUIR_MODAL_MAIS_QUESTOES"
+              )}
+            >
+              Concluir
+            </Button>
           </DialogActions>
         </Dialog>
       )}
       <Button
         variant="outlined"
         sx={{ marginBottom: "1.5rem", marginTop: "0.1rem" }}
-        onClick={() => setModalOpen(true)}
+        onClick={onDispatchAction(
+          () => setModalOpen(true),
+          "BUSCAR_MAIS_QUESTOES_EDITE_PROVA"
+        )}
       >
         Buscar mais questões
       </Button>

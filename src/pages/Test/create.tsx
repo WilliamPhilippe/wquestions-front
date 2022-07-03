@@ -19,10 +19,14 @@ import { ROUTES } from "../../routes/paths";
 import { useAtom } from "jotai";
 import { paramsForNewTest } from "./atoms/useAtoms";
 import { getSubTopicWord } from "../../utils/text/mapSubTopics";
+import { useContext } from "react";
+import { UseAuditLogContext } from "../../context/useAuditLog";
 
 export const CreateTest = () => {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useAtom(paramsForNewTest);
+
+  const { onDispatchAction } = useContext(UseAuditLogContext);
 
   const onSetFormValue = (
     id: keyof TestType,
@@ -68,7 +72,12 @@ export const CreateTest = () => {
 
   return (
     <CenteredContainer>
-      <form onSubmit={onSubmit} onReset={onReset}>
+      <form
+        onSubmit={onDispatchAction(onSubmit, "CRIAR_CRIAR_PROVA_FORM", {
+          formValues,
+        })}
+        onReset={onDispatchAction(onReset, "LIMPAR_CRIAR_PROVA_FORM")}
+      >
         <div className="flex flex-col w-full items-center">
           <TitleBlue>Criar teste:</TitleBlue>
         </div>
@@ -175,7 +184,10 @@ export const CreateTest = () => {
               disableElevation
               variant="text"
               color="inherit"
-              onClick={() => navigate(ROUTES.home)}
+              onClick={onDispatchAction(
+                () => navigate(ROUTES.home),
+                "VOLTAR_CRIAR_PROVA_FORM"
+              )}
             >
               Voltar
             </Button>

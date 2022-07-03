@@ -7,7 +7,9 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { useContext } from "react";
 import { SubTitleBlack } from "../../../../components/Text/titles";
+import { UseAuditLogContext } from "../../../../context/useAuditLog";
 import { SubTopicsType, TopicType } from "../../../../types.d";
 import { formatEnum } from "../../../../utils/text/formatInput";
 
@@ -26,6 +28,7 @@ export const FilterSection = ({
   dispatchSearch,
   loading,
 }: IProps) => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   return (
     <div>
       <SubTitleBlack>Filtros:</SubTitleBlack>
@@ -65,7 +68,10 @@ export const FilterSection = ({
       <div className="flex justify-end">
         <Button
           disabled={subtopicFilter.length === 0 || loading}
-          onClick={dispatchSearch}
+          onClick={onDispatchAction(
+            dispatchSearch,
+            "BUSCAR_MODAL_MAIS_QUESTOES"
+          )}
         >
           Buscar
         </Button>

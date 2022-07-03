@@ -16,9 +16,53 @@ export type Scalars = {
   JSON: any;
 };
 
+export enum ActionsType {
+  AddQuestaoModalMaisQuestoes = 'ADD_QUESTAO_MODAL_MAIS_QUESTOES',
+  BaixarEmOrdemAleatorioaEditeProva = 'BAIXAR_EM_ORDEM_ALEATORIOA_EDITE_PROVA',
+  BaixarProvaEditeProva = 'BAIXAR_PROVA_EDITE_PROVA',
+  BuscarMaisQuestoesEditeProva = 'BUSCAR_MAIS_QUESTOES_EDITE_PROVA',
+  BuscarModalMaisQuestoes = 'BUSCAR_MODAL_MAIS_QUESTOES',
+  CancelarModalCriarQuestao = 'CANCELAR_MODAL_CRIAR_QUESTAO',
+  CancelarModalEditeQuestao = 'CANCELAR_MODAL_EDITE_QUESTAO',
+  CarregarQuestoesCarregarUsuario = 'CARREGAR_QUESTOES_CARREGAR_USUARIO',
+  ConcluirModalMaisQuestoes = 'CONCLUIR_MODAL_MAIS_QUESTOES',
+  ContribuirComQuestaoHome = 'CONTRIBUIR_COM_QUESTAO_HOME',
+  CriarCriarProvaForm = 'CRIAR_CRIAR_PROVA_FORM',
+  CriarProvaEmBrancoHome = 'CRIAR_PROVA_EM_BRANCO_HOME',
+  CriarProvaHome = 'CRIAR_PROVA_HOME',
+  CriarQuestaoEditeProva = 'CRIAR_QUESTAO_EDITE_PROVA',
+  DeleteQuestaoEditeProva = 'DELETE_QUESTAO_EDITE_PROVA',
+  DownQuestaoEditeProva = 'DOWN_QUESTAO_EDITE_PROVA',
+  EditeQuestaoEditeProva = 'EDITE_QUESTAO_EDITE_PROVA',
+  EntrarNoSistemaHome = 'ENTRAR_NO_SISTEMA_HOME',
+  GabaritoEditeProva = 'GABARITO_EDITE_PROVA',
+  GuardarQuestoesEditeProva = 'GUARDAR_QUESTOES_EDITE_PROVA',
+  LimparCriarProvaForm = 'LIMPAR_CRIAR_PROVA_FORM',
+  LimparCriarQuestaoForm = 'LIMPAR_CRIAR_QUESTAO_FORM',
+  SalvarCriarQuestaoForm = 'SALVAR_CRIAR_QUESTAO_FORM',
+  SalvarModalCriarQuestao = 'SALVAR_MODAL_CRIAR_QUESTAO',
+  SalvarModalEditeQuestao = 'SALVAR_MODAL_EDITE_QUESTAO',
+  UpQuestaoEditeProva = 'UP_QUESTAO_EDITE_PROVA',
+  UsarOutroUsuarioHome = 'USAR_OUTRO_USUARIO_HOME',
+  VerProvaHome = 'VER_PROVA_HOME',
+  VoltarCarregarUsuario = 'VOLTAR_CARREGAR_USUARIO',
+  VoltarCriarProvaForm = 'VOLTAR_CRIAR_PROVA_FORM',
+  VoltarCriarQuestaoForm = 'VOLTAR_CRIAR_QUESTAO_FORM',
+  VoltarEditeProva = 'VOLTAR_EDITE_PROVA'
+}
+
 export type AffectedRowsOutput = {
   __typename?: 'AffectedRowsOutput';
   count: Scalars['Int'];
+};
+
+export type AggregateAuditLog = {
+  __typename?: 'AggregateAuditLog';
+  _avg?: Maybe<AuditLogAvgAggregate>;
+  _count?: Maybe<AuditLogCountAggregate>;
+  _max?: Maybe<AuditLogMaxAggregate>;
+  _min?: Maybe<AuditLogMinAggregate>;
+  _sum?: Maybe<AuditLogSumAggregate>;
 };
 
 export type AggregateQuestion = {
@@ -37,6 +81,179 @@ export type AggregateTest = {
   _max?: Maybe<TestMaxAggregate>;
   _min?: Maybe<TestMinAggregate>;
   _sum?: Maybe<TestSumAggregate>;
+};
+
+export type AuditLog = {
+  __typename?: 'AuditLog';
+  action: ActionsType;
+  createdAt: Scalars['DateTime'];
+  data?: Maybe<Scalars['JSON']>;
+  id: Scalars['Int'];
+  userKey: Scalars['String'];
+};
+
+export type AuditLogAvgAggregate = {
+  __typename?: 'AuditLogAvgAggregate';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type AuditLogAvgOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+};
+
+export type AuditLogCountAggregate = {
+  __typename?: 'AuditLogCountAggregate';
+  _all: Scalars['Int'];
+  action: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  data: Scalars['Int'];
+  id: Scalars['Int'];
+  userKey: Scalars['Int'];
+};
+
+export type AuditLogCountOrderByAggregateInput = {
+  action?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  data?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export type AuditLogCreateInput = {
+  action: ActionsType;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  data?: InputMaybe<Scalars['JSON']>;
+  userKey: Scalars['String'];
+};
+
+export type AuditLogCreateManyInput = {
+  action: ActionsType;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  data?: InputMaybe<Scalars['JSON']>;
+  id?: InputMaybe<Scalars['Int']>;
+  userKey: Scalars['String'];
+};
+
+export type AuditLogGroupBy = {
+  __typename?: 'AuditLogGroupBy';
+  _avg?: Maybe<AuditLogAvgAggregate>;
+  _count?: Maybe<AuditLogCountAggregate>;
+  _max?: Maybe<AuditLogMaxAggregate>;
+  _min?: Maybe<AuditLogMinAggregate>;
+  _sum?: Maybe<AuditLogSumAggregate>;
+  action: ActionsType;
+  createdAt: Scalars['DateTime'];
+  data?: Maybe<Scalars['JSON']>;
+  id: Scalars['Int'];
+  userKey: Scalars['String'];
+};
+
+export type AuditLogMaxAggregate = {
+  __typename?: 'AuditLogMaxAggregate';
+  action?: Maybe<ActionsType>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  userKey?: Maybe<Scalars['String']>;
+};
+
+export type AuditLogMaxOrderByAggregateInput = {
+  action?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export type AuditLogMinAggregate = {
+  __typename?: 'AuditLogMinAggregate';
+  action?: Maybe<ActionsType>;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  userKey?: Maybe<Scalars['String']>;
+};
+
+export type AuditLogMinOrderByAggregateInput = {
+  action?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export type AuditLogOrderByWithAggregationInput = {
+  _avg?: InputMaybe<AuditLogAvgOrderByAggregateInput>;
+  _count?: InputMaybe<AuditLogCountOrderByAggregateInput>;
+  _max?: InputMaybe<AuditLogMaxOrderByAggregateInput>;
+  _min?: InputMaybe<AuditLogMinOrderByAggregateInput>;
+  _sum?: InputMaybe<AuditLogSumOrderByAggregateInput>;
+  action?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  data?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export type AuditLogOrderByWithRelationInput = {
+  action?: InputMaybe<SortOrder>;
+  createdAt?: InputMaybe<SortOrder>;
+  data?: InputMaybe<SortOrder>;
+  id?: InputMaybe<SortOrder>;
+  userKey?: InputMaybe<SortOrder>;
+};
+
+export enum AuditLogScalarFieldEnum {
+  Action = 'action',
+  CreatedAt = 'createdAt',
+  Data = 'data',
+  Id = 'id',
+  UserKey = 'userKey'
+}
+
+export type AuditLogScalarWhereWithAggregatesInput = {
+  AND?: InputMaybe<Array<AuditLogScalarWhereWithAggregatesInput>>;
+  NOT?: InputMaybe<Array<AuditLogScalarWhereWithAggregatesInput>>;
+  OR?: InputMaybe<Array<AuditLogScalarWhereWithAggregatesInput>>;
+  action?: InputMaybe<EnumActionsTypeWithAggregatesFilter>;
+  createdAt?: InputMaybe<DateTimeWithAggregatesFilter>;
+  data?: InputMaybe<JsonNullableWithAggregatesFilter>;
+  id?: InputMaybe<IntWithAggregatesFilter>;
+  userKey?: InputMaybe<StringWithAggregatesFilter>;
+};
+
+export type AuditLogSumAggregate = {
+  __typename?: 'AuditLogSumAggregate';
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type AuditLogSumOrderByAggregateInput = {
+  id?: InputMaybe<SortOrder>;
+};
+
+export type AuditLogUpdateInput = {
+  action?: InputMaybe<EnumActionsTypeFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  data?: InputMaybe<Scalars['JSON']>;
+  userKey?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type AuditLogUpdateManyMutationInput = {
+  action?: InputMaybe<EnumActionsTypeFieldUpdateOperationsInput>;
+  createdAt?: InputMaybe<DateTimeFieldUpdateOperationsInput>;
+  data?: InputMaybe<Scalars['JSON']>;
+  userKey?: InputMaybe<StringFieldUpdateOperationsInput>;
+};
+
+export type AuditLogWhereInput = {
+  AND?: InputMaybe<Array<AuditLogWhereInput>>;
+  NOT?: InputMaybe<Array<AuditLogWhereInput>>;
+  OR?: InputMaybe<Array<AuditLogWhereInput>>;
+  action?: InputMaybe<EnumActionsTypeFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  data?: InputMaybe<JsonNullableFilter>;
+  id?: InputMaybe<IntFilter>;
+  userKey?: InputMaybe<StringFilter>;
+};
+
+export type AuditLogWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
 };
 
 export type BoolFieldUpdateOperationsInput = {
@@ -83,6 +300,27 @@ export type DateTimeWithAggregatesFilter = {
   lte?: InputMaybe<Scalars['DateTime']>;
   not?: InputMaybe<NestedDateTimeWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
+};
+
+export type EnumActionsTypeFieldUpdateOperationsInput = {
+  set?: InputMaybe<ActionsType>;
+};
+
+export type EnumActionsTypeFilter = {
+  equals?: InputMaybe<ActionsType>;
+  in?: InputMaybe<Array<ActionsType>>;
+  not?: InputMaybe<NestedEnumActionsTypeFilter>;
+  notIn?: InputMaybe<Array<ActionsType>>;
+};
+
+export type EnumActionsTypeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumActionsTypeFilter>;
+  _min?: InputMaybe<NestedEnumActionsTypeFilter>;
+  equals?: InputMaybe<ActionsType>;
+  in?: InputMaybe<Array<ActionsType>>;
+  not?: InputMaybe<NestedEnumActionsTypeWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<ActionsType>>;
 };
 
 export type EnumSubTopicsTypeNullableListFilter = {
@@ -154,6 +392,19 @@ export type JsonFilter = {
   not?: InputMaybe<Scalars['JSON']>;
 };
 
+export type JsonNullableFilter = {
+  equals?: InputMaybe<Scalars['JSON']>;
+  not?: InputMaybe<Scalars['JSON']>;
+};
+
+export type JsonNullableWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntNullableFilter>;
+  _max?: InputMaybe<NestedJsonNullableFilter>;
+  _min?: InputMaybe<NestedJsonNullableFilter>;
+  equals?: InputMaybe<Scalars['JSON']>;
+  not?: InputMaybe<Scalars['JSON']>;
+};
+
 export type JsonWithAggregatesFilter = {
   _count?: InputMaybe<NestedIntFilter>;
   _max?: InputMaybe<NestedJsonFilter>;
@@ -164,21 +415,39 @@ export type JsonWithAggregatesFilter = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createAuditLog: AuditLog;
+  createManyAuditLog: AffectedRowsOutput;
   createManyQuestion: AffectedRowsOutput;
   createManyTest: AffectedRowsOutput;
   createQuestion: Question;
   createTest: Test;
   customCreateTest: Scalars['Boolean'];
+  deleteAuditLog?: Maybe<AuditLog>;
+  deleteManyAuditLog: AffectedRowsOutput;
   deleteManyQuestion: AffectedRowsOutput;
   deleteManyTest: AffectedRowsOutput;
   deleteQuestion?: Maybe<Question>;
   deleteTest?: Maybe<Test>;
+  updateAuditLog?: Maybe<AuditLog>;
+  updateManyAuditLog: AffectedRowsOutput;
   updateManyQuestion: AffectedRowsOutput;
   updateManyTest: AffectedRowsOutput;
   updateQuestion?: Maybe<Question>;
   updateTest?: Maybe<Test>;
+  upsertAuditLog: AuditLog;
   upsertQuestion: Question;
   upsertTest: Test;
+};
+
+
+export type MutationCreateAuditLogArgs = {
+  data: AuditLogCreateInput;
+};
+
+
+export type MutationCreateManyAuditLogArgs = {
+  data: Array<AuditLogCreateManyInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -209,6 +478,16 @@ export type MutationCustomCreateTestArgs = {
 };
 
 
+export type MutationDeleteAuditLogArgs = {
+  where: AuditLogWhereUniqueInput;
+};
+
+
+export type MutationDeleteManyAuditLogArgs = {
+  where?: InputMaybe<AuditLogWhereInput>;
+};
+
+
 export type MutationDeleteManyQuestionArgs = {
   where?: InputMaybe<QuestionWhereInput>;
 };
@@ -226,6 +505,18 @@ export type MutationDeleteQuestionArgs = {
 
 export type MutationDeleteTestArgs = {
   where: TestWhereUniqueInput;
+};
+
+
+export type MutationUpdateAuditLogArgs = {
+  data: AuditLogUpdateInput;
+  where: AuditLogWhereUniqueInput;
+};
+
+
+export type MutationUpdateManyAuditLogArgs = {
+  data: AuditLogUpdateManyMutationInput;
+  where?: InputMaybe<AuditLogWhereInput>;
 };
 
 
@@ -250,6 +541,13 @@ export type MutationUpdateQuestionArgs = {
 export type MutationUpdateTestArgs = {
   data: TestUpdateInput;
   where: TestWhereUniqueInput;
+};
+
+
+export type MutationUpsertAuditLogArgs = {
+  create: AuditLogCreateInput;
+  update: AuditLogUpdateInput;
+  where: AuditLogWhereUniqueInput;
 };
 
 
@@ -302,6 +600,23 @@ export type NestedDateTimeWithAggregatesFilter = {
   lte?: InputMaybe<Scalars['DateTime']>;
   not?: InputMaybe<NestedDateTimeWithAggregatesFilter>;
   notIn?: InputMaybe<Array<Scalars['DateTime']>>;
+};
+
+export type NestedEnumActionsTypeFilter = {
+  equals?: InputMaybe<ActionsType>;
+  in?: InputMaybe<Array<ActionsType>>;
+  not?: InputMaybe<NestedEnumActionsTypeFilter>;
+  notIn?: InputMaybe<Array<ActionsType>>;
+};
+
+export type NestedEnumActionsTypeWithAggregatesFilter = {
+  _count?: InputMaybe<NestedIntFilter>;
+  _max?: InputMaybe<NestedEnumActionsTypeFilter>;
+  _min?: InputMaybe<NestedEnumActionsTypeFilter>;
+  equals?: InputMaybe<ActionsType>;
+  in?: InputMaybe<Array<ActionsType>>;
+  not?: InputMaybe<NestedEnumActionsTypeWithAggregatesFilter>;
+  notIn?: InputMaybe<Array<ActionsType>>;
 };
 
 export type NestedEnumTopicTypeFilter = {
@@ -375,6 +690,11 @@ export type NestedJsonFilter = {
   not?: InputMaybe<Scalars['JSON']>;
 };
 
+export type NestedJsonNullableFilter = {
+  equals?: InputMaybe<Scalars['JSON']>;
+  not?: InputMaybe<Scalars['JSON']>;
+};
+
 export type NestedStringFilter = {
   contains?: InputMaybe<Scalars['String']>;
   endsWith?: InputMaybe<Scalars['String']>;
@@ -443,16 +763,30 @@ export type NullableStringFieldUpdateOperationsInput = {
 
 export type Query = {
   __typename?: 'Query';
+  aggregateAuditLog: AggregateAuditLog;
   aggregateQuestion: AggregateQuestion;
   aggregateTest: AggregateTest;
+  auditLog?: Maybe<AuditLog>;
+  auditLogs: Array<AuditLog>;
+  findFirstAuditLog?: Maybe<AuditLog>;
   findFirstQuestion?: Maybe<Question>;
   findFirstTest?: Maybe<Test>;
+  groupByAuditLog: Array<AuditLogGroupBy>;
   groupByQuestion: Array<QuestionGroupBy>;
   groupByTest: Array<TestGroupBy>;
   question?: Maybe<Question>;
   questions: Array<Question>;
   test?: Maybe<Test>;
   tests: Array<Test>;
+};
+
+
+export type QueryAggregateAuditLogArgs = {
+  cursor?: InputMaybe<AuditLogWhereUniqueInput>;
+  orderBy?: InputMaybe<Array<AuditLogOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AuditLogWhereInput>;
 };
 
 
@@ -474,6 +808,31 @@ export type QueryAggregateTestArgs = {
 };
 
 
+export type QueryAuditLogArgs = {
+  where: AuditLogWhereUniqueInput;
+};
+
+
+export type QueryAuditLogsArgs = {
+  cursor?: InputMaybe<AuditLogWhereUniqueInput>;
+  distinct?: InputMaybe<Array<AuditLogScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<AuditLogOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AuditLogWhereInput>;
+};
+
+
+export type QueryFindFirstAuditLogArgs = {
+  cursor?: InputMaybe<AuditLogWhereUniqueInput>;
+  distinct?: InputMaybe<Array<AuditLogScalarFieldEnum>>;
+  orderBy?: InputMaybe<Array<AuditLogOrderByWithRelationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AuditLogWhereInput>;
+};
+
+
 export type QueryFindFirstQuestionArgs = {
   cursor?: InputMaybe<QuestionWhereUniqueInput>;
   distinct?: InputMaybe<Array<QuestionScalarFieldEnum>>;
@@ -491,6 +850,16 @@ export type QueryFindFirstTestArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<TestWhereInput>;
+};
+
+
+export type QueryGroupByAuditLogArgs = {
+  by: Array<AuditLogScalarFieldEnum>;
+  having?: InputMaybe<AuditLogScalarWhereWithAggregatesInput>;
+  orderBy?: InputMaybe<Array<AuditLogOrderByWithAggregationInput>>;
+  skip?: InputMaybe<Scalars['Int']>;
+  take?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<AuditLogWhereInput>;
 };
 
 

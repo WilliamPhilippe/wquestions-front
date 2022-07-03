@@ -6,18 +6,23 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UseAuditLogContext } from "../../context/useAuditLog";
 
 interface IProps {
   onSaveUser: (user: string) => void;
 }
 
 export const ModalUserId = ({ onSaveUser }: IProps) => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   const [openDialog, setOpenDialog] = useState(false);
   const [userValue, setUserValue] = useState<string | undefined | null>("");
 
-  const onClickSave = () => {
+  const onClickSave = async () => {
     if (userValue) {
+      await onDispatchAction(() => {}, "CARREGAR_QUESTOES_CARREGAR_USUARIO", {
+        newUser: userValue,
+      })();
       onSaveUser(userValue);
       setOpenDialog(false);
       setUserValue("");
@@ -47,7 +52,13 @@ export const ModalUserId = ({ onSaveUser }: IProps) => {
           </DialogContent>
           <DialogActions>
             <div className="w-full flex flex-row justify-between">
-              <Button onClick={() => setOpenDialog(false)} color="inherit">
+              <Button
+                onClick={onDispatchAction(
+                  () => setOpenDialog(false),
+                  "VOLTAR_CARREGAR_USUARIO"
+                )}
+                color="inherit"
+              >
                 Voltar
               </Button>
               <Button onClick={onClickSave} disabled={!userValue}>
@@ -57,7 +68,14 @@ export const ModalUserId = ({ onSaveUser }: IProps) => {
           </DialogActions>
         </Dialog>
       )}
-      <Button onClick={() => setOpenDialog(true)}>usar Outro Usuário</Button>
+      <Button
+        onClick={onDispatchAction(
+          () => setOpenDialog(true),
+          "USAR_OUTRO_USUARIO_HOME"
+        )}
+      >
+        Usar Outro Usuário
+      </Button>
     </>
   );
 };

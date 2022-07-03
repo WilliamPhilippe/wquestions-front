@@ -5,7 +5,7 @@ interface IProps {
 
 export const CenteredContainer = ({ children, className }: IProps) => (
   <div
-    className={`bg-white 200 rounded w-1/2 mx-auto p-2 border ${
+    className={`bg-white 200 rounded w-2/3 mx-auto p-2 border ${
       className ? className : ""
     }`}
   >

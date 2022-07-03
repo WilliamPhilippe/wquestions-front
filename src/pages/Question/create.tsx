@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { DeleteOutline } from "@mui/icons-material";
 import {
@@ -22,13 +22,14 @@ import {
   SubTopicsType,
   TopicType,
 } from "../../types.d";
-import { ROUTES } from "../../routes/paths";
 import { getCharFromIndex } from "../../utils/text/getCharFromIndex";
 import { CenteredContainer } from "../../components/Containers/centeredContainer";
 import { TitleBlue } from "../../components/Text/titles";
 import { getSubTopicWord } from "../../utils/text/mapSubTopics";
+import { UseAuditLogContext } from "../../context/useAuditLog";
 
 export const CreateQuestion = () => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState<Partial<Question>>({
@@ -150,7 +151,14 @@ export const CreateQuestion = () => {
   return (
     <CenteredContainer>
       <TitleBlue>Criar questão:</TitleBlue>
-      <form onSubmit={(e) => onSubmit(e)} onReset={onReset}>
+      <form
+        onSubmit={onDispatchAction(
+          (e: any) => onSubmit(e),
+          "SALVAR_CRIAR_QUESTAO_FORM",
+          { formValues }
+        )}
+        onReset={onDispatchAction(onReset, "LIMPAR_CRIAR_QUESTAO_FORM")}
+      >
         <TextField
           sx={{ marginBottom: "1rem" }}
           id="description"
@@ -310,7 +318,10 @@ export const CreateQuestion = () => {
               variant="text"
               color="inherit"
               disabled={loading}
-              onClick={() => navigate(ROUTES.home)}
+              onClick={onDispatchAction(
+                () => navigate(-1),
+                "VOLTAR_CRIAR_QUESTAO_FORM"
+              )}
             >
               Voltar
             </Button>

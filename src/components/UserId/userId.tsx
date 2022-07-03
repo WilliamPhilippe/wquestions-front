@@ -1,15 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { Divider } from "@mui/material";
 import { useAtom } from "jotai";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
 import { GET_TESTS_QUERY } from "../../data/test";
 import { Query, QueryTestsArgs } from "../../types.d";
+import { userIdKey } from "../../utils/consts";
 import { ModalUserId } from "./modalUserId";
 import { TestLI } from "./testLI";
 import { userIdAtom } from "./userIdAtom";
-
-const userIdKey = "USER_ID_STORE";
 
 export const UserId = () => {
   const [userIdValue, setUserIdValue] = useAtom(userIdAtom);
@@ -25,27 +22,6 @@ export const UserId = () => {
     },
     fetchPolicy: "cache-and-network",
   });
-
-  useEffect(() => {
-    const userIdStored = localStorage.getItem(userIdKey);
-    if (userIdStored) {
-      setUserIdValue(userIdStored);
-    } else {
-      const newUserIdGenerated = generateNewUserId();
-      localStorage.setItem(userIdKey, newUserIdGenerated);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const generateNewUserId = () => {
-    const newUserId = `USER${Math.floor((Math.random() + 1) * 100000)}`;
-
-    toast.success("Seu usuário foi gerado com sucesso! - " + newUserId);
-
-    setUserIdValue(newUserId);
-
-    return newUserId;
-  };
 
   const onSaveUser = (user: string) => {
     setUserIdValue(user);

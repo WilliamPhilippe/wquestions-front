@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import { useAtom } from "jotai";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UseAuditLogContext } from "../../context/useAuditLog";
 import { questionsListAtom } from "../../pages/Test/atoms/useAtoms";
 import { ROUTES } from "../../routes/paths";
 import { Question, Test } from "../../types";
@@ -10,6 +12,7 @@ interface IProps {
   test: Test;
 }
 export const TestLI = ({ test }: IProps) => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   const navigate = useNavigate();
   const setQuestionsAtom = useAtom(questionsListAtom)[1];
   const questions = test.data as Question[];
@@ -31,7 +34,11 @@ export const TestLI = ({ test }: IProps) => {
         </strong>
       </div>
       <div className="flex flex-row justify-center w-full items-end mt-auto mb-0">
-        <Button onClick={onClickSeeTest}>Ver prova</Button>
+        <Button
+          onClick={onDispatchAction(onClickSeeTest, "VER_PROVA_HOME", { test })}
+        >
+          Ver prova
+        </Button>
       </div>
     </div>
   );

@@ -10,7 +10,8 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UseAuditLogContext } from "../../../context/useAuditLog";
 import { Question } from "../../../types.d";
 import { getCharFromIndex } from "../../../utils/text/getCharFromIndex";
 import { PickQuestionForModal } from "../types";
@@ -26,6 +27,7 @@ export const ModalOnEditQuestion = ({
   idx,
   question: questionData,
 }: IProps) => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [question, setQuestion] = useState<PickQuestionForModal>({
     answer: questionData.answer,
@@ -79,7 +81,10 @@ export const ModalOnEditQuestion = ({
       {modalOpen && (
         <Dialog
           open={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={onDispatchAction(
+            () => setModalOpen(false),
+            "CANCELAR_MODAL_EDITE_QUESTAO"
+          )}
           maxWidth="sm"
           fullWidth
         >
@@ -201,17 +206,30 @@ export const ModalOnEditQuestion = ({
             <Button
               variant="text"
               color="inherit"
-              onClick={() => setModalOpen(false)}
+              onClick={onDispatchAction(
+                () => setModalOpen(false),
+                "CANCELAR_MODAL_EDITE_QUESTAO"
+              )}
             >
               Cancelar
             </Button>
-            <Button onClick={onSave}>Salvar</Button>
+            <Button
+              onClick={onDispatchAction(onSave, "SALVAR_MODAL_EDITE_QUESTAO", {
+                question,
+              })}
+            >
+              Salvar
+            </Button>
           </DialogActions>
         </Dialog>
       )}
       <EditRounded
         className="text-gray-400 hover:text-gray-600 cursor-pointer ml-2"
-        onClick={() => setModalOpen(true)}
+        onClick={onDispatchAction(
+          () => setModalOpen(true),
+          "EDITE_QUESTAO_EDITE_PROVA",
+          { idx }
+        )}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { DeleteOutline } from "@mui/icons-material";
 import {
   Button,
@@ -13,12 +13,14 @@ import {
 } from "@mui/material";
 import { Question, TopicType } from "../../../types.d";
 import { getCharFromIndex } from "../../../utils/text/getCharFromIndex";
+import { UseAuditLogContext } from "../../../context/useAuditLog";
 
 interface IProps {
   onCreate: (question: Question) => void;
 }
 
 export const ModalOnCreateQuestion = ({ onCreate }: IProps) => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [question, setQuestion] = useState<Question>({
     answer: "",
@@ -87,11 +89,14 @@ export const ModalOnCreateQuestion = ({ onCreate }: IProps) => {
       {modalOpen && (
         <Dialog
           open={modalOpen}
-          onClose={() => setModalOpen(false)}
+          onClose={onDispatchAction(
+            () => setModalOpen(false),
+            "CANCELAR_MODAL_CRIAR_QUESTAO"
+          )}
           maxWidth="sm"
           fullWidth
         >
-          <DialogTitle>Edite a questão:</DialogTitle>
+          <DialogTitle>Crie a questão:</DialogTitle>
           <DialogContent>
             <TextField
               sx={{ marginBottom: "1rem", marginTop: "1rem" }}
@@ -209,18 +214,30 @@ export const ModalOnCreateQuestion = ({ onCreate }: IProps) => {
             <Button
               variant="text"
               color="inherit"
-              onClick={() => setModalOpen(false)}
+              onClick={onDispatchAction(
+                () => setModalOpen(false),
+                "CANCELAR_MODAL_CRIAR_QUESTAO"
+              )}
             >
               Cancelar
             </Button>
-            <Button onClick={onSave}>Salvar</Button>
+            <Button
+              onClick={onDispatchAction(onSave, "SALVAR_MODAL_CRIAR_QUESTAO", {
+                question,
+              })}
+            >
+              Salvar
+            </Button>
           </DialogActions>
         </Dialog>
       )}
       <Button
         variant="outlined"
         sx={{ marginBottom: "1.5rem", marginTop: "0.1rem" }}
-        onClick={() => setModalOpen(true)}
+        onClick={onDispatchAction(
+          () => setModalOpen(true),
+          "CRIAR_QUESTAO_EDITE_PROVA"
+        )}
       >
         Criar questão
       </Button>

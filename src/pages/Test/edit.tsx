@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Button, Divider } from "@mui/material";
 import toast from "react-hot-toast";
 import { useAtom, useAtomValue } from "jotai";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { CenteredContainer } from "../../components/Containers/centeredContainer";
@@ -24,6 +24,7 @@ import { PdfDownloadButton } from "./components/pdf/downloadButton";
 import { CREATE_TEST_MUTATION } from "../../data/test";
 import { userIdAtom } from "../../components/UserId/userIdAtom";
 import { FROM_EXISTING_PATH } from "../../utils/consts";
+import { UseAuditLogContext } from "../../context/useAuditLog";
 
 export const EditTest = () => {
   const { mode } = useParams();
@@ -31,6 +32,7 @@ export const EditTest = () => {
   const testParams = useAtomValue(paramsForNewTest);
   const userIdKey = useAtomValue(userIdAtom);
   const [questions, setQuestions] = useAtom(questionsListAtom);
+  const { onDispatchAction } = useContext(UseAuditLogContext);
 
   const fromExisting = mode === FROM_EXISTING_PATH;
 
@@ -181,14 +183,23 @@ export const EditTest = () => {
             disableElevation
             variant="text"
             color="inherit"
-            onClick={() => navigate(-1)}
+            onClick={onDispatchAction(() => navigate(-1), "VOLTAR_EDITE_PROVA")}
           >
             Voltar
           </Button>
         </div>
         <TitleBlue>Edite sua prova:</TitleBlue>
         <div className="w-1/4 ml-auto text-right">
-          <Button disableElevation variant="text" onClick={onSaveTest}>
+          <Button
+            disableElevation
+            variant="text"
+            onClick={() =>
+              onDispatchAction(onSaveTest, "GUARDAR_QUESTOES_EDITE_PROVA")(
+                "OVERRIDE",
+                { questions }
+              )
+            }
+          >
             Guardar Questões
           </Button>
         </div>
@@ -202,9 +213,21 @@ export const EditTest = () => {
             key={question.id}
             question={question}
             idx={idx}
-            onDelete={() => onDelete(idx)}
-            setToDown={() => setToDown(idx)}
-            setToUp={() => setToUp(idx)}
+            onDelete={onDispatchAction(
+              () => onDelete(idx),
+              "DELETE_QUESTAO_EDITE_PROVA",
+              { idx }
+            )}
+            setToDown={onDispatchAction(
+              () => setToDown(idx),
+              "DOWN_QUESTAO_EDITE_PROVA",
+              { idx }
+            )}
+            setToUp={onDispatchAction(
+              () => setToUp(idx),
+              "UP_QUESTAO_EDITE_PROVA",
+              { idx }
+            )}
             onEdit={onEdit}
           />
         ))}
@@ -220,7 +243,7 @@ export const EditTest = () => {
           disableElevation
           variant="text"
           color="inherit"
-          onClick={() => navigate(-1)}
+          onClick={onDispatchAction(() => navigate(-1), "VOLTAR_EDITE_PROVA")}
         >
           Voltar
         </Button>

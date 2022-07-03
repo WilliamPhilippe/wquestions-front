@@ -4,6 +4,8 @@ import { Question } from "../../../../types";
 import { shuffleArray } from "../../../../utils/array/shuffle";
 import { MyDoc } from "./rootDocument";
 import { saveAs } from "file-saver";
+import { useContext } from "react";
+import { UseAuditLogContext } from "../../../../context/useAuditLog";
 
 interface IProps {
   questions: Question[];
@@ -16,6 +18,7 @@ export const PdfDownloadButton = ({
   aleatory,
   withAnswers,
 }: IProps) => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   const generatePDFOnTheFly = async () => {
     if (!questions.length) return;
     const doc = (
@@ -30,6 +33,15 @@ export const PdfDownloadButton = ({
 
     const blob = await asPDF.toBlob();
     saveAs(blob, withAnswers ? "Gabarito.pdf" : "Prova.pdf");
+    onDispatchAction(
+      () => {},
+      withAnswers
+        ? "GABARITO_EDITE_PROVA"
+        : aleatory
+        ? "BAIXAR_EM_ORDEM_ALEATORIOA_EDITE_PROVA"
+        : "BAIXAR_PROVA_EDITE_PROVA",
+      { questions }
+    )();
   };
 
   return (

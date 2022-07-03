@@ -3,7 +3,8 @@ import {
   CheckCircleRounded,
 } from "@mui/icons-material";
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UseAuditLogContext } from "../../../../context/useAuditLog";
 import { Question } from "../../../../types";
 import { formatSetence } from "../../../../utils/text/formatInput";
 import { questionsListAtom } from "../../atoms/useAtoms";
@@ -14,6 +15,7 @@ interface IProps {
 }
 
 export const AddQuestionLI = ({ question, idx }: IProps) => {
+  const { onDispatchAction } = useContext(UseAuditLogContext);
   const [questions, setQuestions] = useAtom(questionsListAtom);
   const [imgError, setImgError] = useState(false);
 
@@ -33,7 +35,11 @@ export const AddQuestionLI = ({ question, idx }: IProps) => {
           {!isAdded && (
             <AddCircleOutlineRounded
               className="text-gray-400 hover:text-gray-600 cursor-pointer"
-              onClick={onAdd}
+              onClick={onDispatchAction(
+                onAdd,
+                "ADD_QUESTAO_MODAL_MAIS_QUESTOES",
+                { question }
+              )}
             />
           )}
           {isAdded && <CheckCircleRounded className="text-green-500" />}

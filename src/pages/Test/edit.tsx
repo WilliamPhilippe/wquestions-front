@@ -162,7 +162,6 @@ export const EditTest = () => {
       });
       toast.success("Prova salva.");
     } catch (err) {
-      console.info(err);
       toast.error("Não foi possível salvar essa prova.");
     } finally {
       toast.dismiss(loadingToast);

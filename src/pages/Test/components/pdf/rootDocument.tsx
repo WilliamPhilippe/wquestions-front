@@ -95,10 +95,6 @@ const Header = () => {
   );
 };
 export const MyDoc = ({ questions, withAnswers }: IProps) => {
-  useEffect(() => {
-    console.info("inside", questions);
-  }, [questions]);
-
   return questions.length ? (
     <Document>
       <Page size="A4" style={styles.page}>

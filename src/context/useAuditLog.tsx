@@ -47,7 +47,6 @@ export const UseAuditLogProvider = ({ children }: IProps) => {
       callback(param);
 
       if (!currentUser) {
-        console.error("No current user");
         return;
       }
 
